@@ -5285,6 +5285,28 @@
         "url": "https://github.com/bayramannakov"
       },
       "repository": "https://github.com/bayramannakov/claude-reflect"
+    },
+    {
+      "name": "neurodivergent-visual-org",
+      "source": "./plugins/productivity/neurodivergent-visual-org",
+      "description": "Create ADHD-friendly visual organizational tools (Mermaid diagrams) optimized for neurodivergent thinking patterns with accessibility modes",
+      "version": "3.1.1",
+      "category": "productivity",
+      "keywords": [
+        "neurodivergent",
+        "adhd",
+        "autism",
+        "accessibility",
+        "mermaid-diagrams",
+        "visual-organization",
+        "task-breakdown",
+        "decision-trees"
+      ],
+      "author": {
+        "name": "Jack Reis",
+        "url": "https://github.com/JackReis"
+      },
+      "repository": "https://github.com/JackReis/neurodivergent-visual-org"
     }
   ]
 }
