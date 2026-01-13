@@ -43,6 +43,34 @@ const { title, description = "Browse 244 searchable agent skills and 259 plugins
       gtag('config', 'G-9Z1DTMTT44');
     </script>
 
+    <!-- Firebase Analytics -->
+    <script type="module" is:inline>
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js';
+      import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js';
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAUbgBuoMCtcjEdRcYzqu08kuVFVDeiHsM",
+        authDomain: "claude-code-plugins-io.firebaseapp.com",
+        projectId: "claude-code-plugins-io",
+        storageBucket: "claude-code-plugins-io.firebasestorage.app",
+        messagingSenderId: "348333126402",
+        appId: "1:348333126402:web:d6648125f161de167b881b"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      // Log page view
+      logEvent(analytics, 'page_view', {
+        page_path: window.location.pathname,
+        page_title: document.title
+      });
+
+      // Make analytics available globally for custom events
+      window.firebaseAnalytics = analytics;
+      window.logFirebaseEvent = (eventName, params) => logEvent(analytics, eventName, params);
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
