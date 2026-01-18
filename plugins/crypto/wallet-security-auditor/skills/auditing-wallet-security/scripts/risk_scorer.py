@@ -10,10 +10,9 @@ License: MIT
 """
 
 from dataclasses import dataclass, field
-from typing import List, Optional
-from decimal import Decimal
+from typing import List
 
-from approval_scanner import ApprovalSummary, TokenApproval
+from approval_scanner import ApprovalSummary
 
 
 @dataclass
@@ -65,7 +64,7 @@ class RiskScorer:
         "approval_flagged": -25,       # Approval to flagged/scam contract
         "interaction_scam": -20,       # Interaction with known scam
         "many_unlimited": -15,         # >5 unlimited approvals
-        "stale_approval": -10,         # Approval >6 months old
+        "unlimited_known": -5,         # Unlimited approval to known contract (lower risk)
         "unknown_contract": -5,        # Interaction with unverified contract
         "high_value_approval": -10,    # Approval for high-value token
     }
@@ -106,8 +105,8 @@ class RiskScorer:
                         score_impact=self.RISK_IMPACTS["unlimited_unknown"],
                     ))
                 else:
-                    # Known spender - lower risk but still flagged
-                    score += self.RISK_IMPACTS["stale_approval"]
+                    # Known spender - lower risk but unlimited approvals are still a concern
+                    score += self.RISK_IMPACTS["unlimited_known"]
 
         # Check for many unlimited approvals
         if len(unlimited) > 5:

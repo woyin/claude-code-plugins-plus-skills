@@ -421,9 +421,13 @@ class TxAnalyzer:
             approval_times = [tx.timestamp for tx in approval_txs]
             approval_times.sort()
 
-            for i in range(len(approval_times) - 5):
-                window = approval_times[i + 5] - approval_times[i]
-                if window <= 3600:  # 5+ approvals in 1 hour
+            # Use configured threshold (default 5)
+            threshold = self.SUSPICIOUS_PATTERNS["rapid_approvals"]["threshold"]
+            window_seconds = self.SUSPICIOUS_PATTERNS["rapid_approvals"]["window_seconds"]
+
+            for i in range(len(approval_times) - (threshold - 1)):
+                window = approval_times[i + threshold - 1] - approval_times[i]
+                if window <= window_seconds:  # threshold+ approvals in window
                     suspicious.append(SuspiciousActivity(
                         activity_type="rapid_approvals",
                         severity="high",

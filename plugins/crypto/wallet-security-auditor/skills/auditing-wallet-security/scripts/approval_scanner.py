@@ -162,7 +162,8 @@ class ApprovalScanner:
                 "latest"
             ])
             return result if result and result != "0x" else None
-        except Exception:
+        except (requests.RequestException, KeyError, ValueError):
+            # Contract call failed - contract may not be ERC20 or is inaccessible
             return None
 
     def _get_token_info(self, address: str) -> Dict[str, Any]:

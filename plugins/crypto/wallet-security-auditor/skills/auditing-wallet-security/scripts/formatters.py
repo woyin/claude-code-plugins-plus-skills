@@ -11,7 +11,7 @@ License: MIT
 
 import json
 from dataclasses import asdict
-from typing import List, Optional, Any
+from typing import List, Any
 from decimal import Decimal
 
 from approval_scanner import TokenApproval, ApprovalSummary

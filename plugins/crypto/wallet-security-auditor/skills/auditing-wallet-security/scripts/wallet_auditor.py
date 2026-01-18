@@ -22,7 +22,6 @@ import argparse
 import sys
 import os
 import json
-from typing import Optional
 
 # Add script directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -290,7 +289,10 @@ def cmd_report(args):
         # Get data
         approval_summary = scanner.get_all_approvals(args.address)
         interaction_report = tx_analyzer.analyze_interaction_patterns(args.address)
-        security_score = scorer.get_total_score(approval_summary)
+        security_score = scorer.get_total_score(
+            approval_summary,
+            interactions=interaction_report.interactions,
+        )
 
         if args.json:
             # JSON output
@@ -465,7 +467,7 @@ Supported chains: ethereum, bsc, polygon, arbitrum, optimism, base
     report_parser.add_argument("--verbose", action="store_true", help="Verbose output")
 
     # chains command
-    chains_parser = subparsers.add_parser(
+    subparsers.add_parser(
         "chains",
         help="List supported chains"
     )
